@@ -8,13 +8,13 @@ public class Company {
     private String Link;
     private String Info;
 
-    public Company (String CompanyName, String Email, String Status, String Date, String Link, String Info ){
+    public Company (String CompanyName, String Email, String Date, String Link, String Info, String Status ){
         this.CompanyName = CompanyName;
         this.Email = Email;
-        this.Status = Status;
         this.Date = Date;
         this.Link = Link;
         this.Info = Info;
+        this.Status = Status;
     }
 
 

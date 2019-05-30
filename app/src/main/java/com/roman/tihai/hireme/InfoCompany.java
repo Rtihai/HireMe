@@ -37,10 +37,10 @@ public class InfoCompany extends AppCompatActivity {
         this.Info = findViewById(R.id.addition_information_text);
 
         this.CompanyName.setText(CompanyName);
-        this.CompanyName.setText(Email);
-        this.CompanyName.setText(Date);
-        this.CompanyName.setText(Link);
-        this.CompanyName.setText(Info);
+        this.Email.setText(Email);
+        this.Date.setText(Date);
+        this.Link.setText(Link);
+        this.Info.setText(Info);
 
 //        I think We don't need radio button on this view
 //        we can put TextView as a status instead of the buttons. How do you think?

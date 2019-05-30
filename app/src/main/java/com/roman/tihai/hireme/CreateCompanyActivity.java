@@ -58,7 +58,7 @@ public class CreateCompanyActivity extends AppCompatActivity {
         final String Email = editEmail.getText().toString().trim();
         final String Date = editDate.getText().toString().trim();
         final String Link = editLink.getText().toString().trim();
-        final String Info = editInfo.getText().toString().trim();
+        final String Info = editInfo.getText().toString();
         String Status = this.getStatus();
 
         if(!CompanyName.isEmpty()) {
@@ -67,7 +67,7 @@ public class CreateCompanyActivity extends AppCompatActivity {
             intent.putExtra("Email", Email);
             intent.putExtra("Date", Date);
             intent.putExtra("Link", Link);
-            intent.putExtra("info", Info);
+            intent.putExtra("Info", Info);
             intent.putExtra("Status", Status);
             setResult(RESULT_OK, intent);
             finish();

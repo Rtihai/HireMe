@@ -23,7 +23,8 @@ import android.widget.Button;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener{
+        implements NavigationView.OnNavigationItemSelectedListener,
+        OnclickListenerDelegate{
 
     private RecyclerView recyclerView;
     private CompanyAdapter companyAdapter;
@@ -71,6 +72,12 @@ public class MainActivity extends AppCompatActivity
                 String Status = data.getStringExtra("Status");
 
                 Company company = new Company(CompanyName, Email, Date, Link, Info, Status);
+                System.out.println(company.getCompanyName());
+                System.out.println(company.getEmail());
+                System.out.println(company.getDate());
+                System.out.println(company.getLink());
+                System.out.println(company.getInfo());
+                System.out.println(company.getStatus());
                 companyArrayList.add(company);
                 companyAdapter.notifyDataSetChanged();
                 Snackbar.make(findViewById(R.id.drawer_layout), CompanyName + ": Successfully added",
@@ -84,7 +91,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onStart() {
         super.onStart();
-        companyAdapter = new CompanyAdapter(getApplicationContext(), companyArrayList);
+        companyAdapter = new CompanyAdapter(getApplicationContext(), companyArrayList, this);
         recyclerView.setAdapter(companyAdapter);
 
     }
@@ -151,23 +158,25 @@ public class MainActivity extends AppCompatActivity
         startActivityForResult(intent, 0);
     }
 
-//    @Override
-//    public void onExpandClick(int position) {
-//        String CompanyName = companyArrayList.get(position).getCompanyName().trim();
-//        String Email = companyArrayList.get(position).getEmail().trim();
-//        String Date = companyArrayList.get(position).getDate().trim();
-//        String Link = companyArrayList.get(position).getLink().trim();
-//        String Info = companyArrayList.get(position).getInfo().trim();
-//        String Status = companyArrayList.get(position).getStatus().trim();
-//
-//        Intent intent = new Intent(this, InfoCompany.class);
-//        intent.putExtra("CompanyName", CompanyName);
-//        intent.putExtra("Email", Email);
-//        intent.putExtra("Date", Date);
-//        intent.putExtra("Link", Link);
-//        intent.putExtra("info", Info);
-//        intent.putExtra("Status", Status);
-//
-//        startActivity(intent);
-//    }
+
+    @Override
+    public void onClickViewHolder(View view, int position) {
+
+        String CompanyName = companyArrayList.get(position).getCompanyName().trim();
+        String Email = companyArrayList.get(position).getEmail().trim();
+        String Date = companyArrayList.get(position).getDate().trim();
+        String Link = companyArrayList.get(position).getLink().trim();
+        String Info = companyArrayList.get(position).getInfo().trim();
+        String Status = companyArrayList.get(position).getStatus().trim();
+
+        Intent intent = new Intent(this, InfoCompany.class);
+        intent.putExtra("CompanyName", CompanyName);
+        intent.putExtra("Email", Email);
+        intent.putExtra("Date", Date);
+        intent.putExtra("Link", Link);
+        intent.putExtra("info", Info);
+        intent.putExtra("Status", Status);
+
+        startActivity(intent);
+    }
 }

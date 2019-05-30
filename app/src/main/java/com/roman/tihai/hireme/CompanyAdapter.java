@@ -1,6 +1,7 @@
 package com.roman.tihai.hireme;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -16,11 +18,13 @@ public class CompanyAdapter extends RecyclerView.Adapter<CompanyAdapter.CompanyV
     private Context mContext;
     private LayoutInflater mLayoutInflater;
     private ArrayList<Company> mCompanyList;
+    private OnclickListenerDelegate mDelegate;
 
-    CompanyAdapter(Context context, ArrayList<Company> mCompanyList){
+    CompanyAdapter(Context context, ArrayList<Company> mCompanyList, OnclickListenerDelegate delegate){
         this.mCompanyList = mCompanyList;
         mContext = context;
         mLayoutInflater = LayoutInflater.from(mContext);
+        mDelegate = delegate;
     }
 
 
@@ -44,12 +48,11 @@ public class CompanyAdapter extends RecyclerView.Adapter<CompanyAdapter.CompanyV
         return (mCompanyList == null) ? 0 : mCompanyList.size();
     }
 
-    public class CompanyViewHolder extends RecyclerView.ViewHolder {
+    public class CompanyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView mCompanyNameTV;
         private TextView mEmailTV;
         private TextView mStatusTV;
         private Button mBtn;
-
 
 
         public CompanyViewHolder(@NonNull View itemView) {
@@ -58,6 +61,7 @@ public class CompanyAdapter extends RecyclerView.Adapter<CompanyAdapter.CompanyV
             mEmailTV = itemView.findViewById(R.id.email_text);
             mStatusTV = itemView.findViewById(R.id.status_radio_textview);
             mBtn = itemView.findViewById(R.id.expand_company_info);
+            mBtn.setOnClickListener(this);
         }
 
         public void bind(Company company){
@@ -66,7 +70,14 @@ public class CompanyAdapter extends RecyclerView.Adapter<CompanyAdapter.CompanyV
             mStatusTV.setText(company.getStatus());
         }
 
-
-
+        @Override
+        public void onClick(View v) {
+            int position = getAdapterPosition();
+            mDelegate.onClickViewHolder(v, position);
+        }
     }
 }
+
+interface OnclickListenerDelegate {
+    void onClickViewHolder(View view , int position);
+        }

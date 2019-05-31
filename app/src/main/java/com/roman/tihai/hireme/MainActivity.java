@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity
                 companyArrayList.add(company);
                 companyAdapter.notifyDataSetChanged();
                 Snackbar.make(findViewById(R.id.drawer_layout), CompanyName + ": Successfully added",
-                        Snackbar.LENGTH_LONG).show();
+                        Snackbar.LENGTH_SHORT).show();
             }
         }
 
@@ -107,12 +107,12 @@ public class MainActivity extends AppCompatActivity
                 companyAdapter.notifyDataSetChanged();
 
                 Snackbar.make(findViewById(R.id.drawer_layout), companyArrayList.get(position).getCompanyName() + ": Successfully Edited",
-                        Snackbar.LENGTH_LONG).show();
+                        Snackbar.LENGTH_SHORT).show();
             }
             if(resultCode == RESULT_OK){
                 int position = data.getIntExtra("Positions", 0);
                 Snackbar.make(findViewById(R.id.drawer_layout), companyArrayList.get(position).getCompanyName() + ": Successfully Deleted",
-                        Snackbar.LENGTH_LONG).show();
+                        Snackbar.LENGTH_SHORT).show();
                 companyArrayList.remove(position);
                 companyAdapter.notifyDataSetChanged();
             }

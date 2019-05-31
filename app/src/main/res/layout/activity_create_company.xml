@@ -122,13 +122,13 @@
 
     <Button
         android:id="@+id/cancel_btn"
-        android:layout_width="130dp"
-        android:layout_height="50dp"
+        android:layout_width="143dp"
+        android:layout_height="60dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
-        android:text="@android:string/cancel"
         android:onClick="clickOnCancel"
+        android:text="@android:string/cancel"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
@@ -142,8 +142,10 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:text="Save"
+        android:background="@color/colorPrimary"
         android:onClick="clickOnSave"
+        android:text="Save"
+        android:textColor="@color/justWhiteColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.083"

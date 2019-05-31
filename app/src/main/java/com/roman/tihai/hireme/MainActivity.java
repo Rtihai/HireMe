@@ -214,6 +214,8 @@ public class MainActivity extends AppCompatActivity
         intent.putExtra("info", Info);
         intent.putExtra("Status", Status);
 
+
+        //Make it happens
         startActivityForResult(intent, 10);
     }
 }

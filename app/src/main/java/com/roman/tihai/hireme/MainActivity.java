@@ -85,6 +85,39 @@ public class MainActivity extends AppCompatActivity
             }
         }
 
+        if(requestCode == 10){
+            if(resultCode == RESULT_FIRST_USER){
+                String CompanyName = data.getStringExtra("CompanyName");
+                String Email = data.getStringExtra("Email");
+                String Date = data.getStringExtra("Date");
+                String Link = data.getStringExtra("Link");
+                String Info = data.getStringExtra("Info");
+                String Status = data.getStringExtra("Status");
+                int position = data.getIntExtra("Positions", 0);
+
+                Company target = companyArrayList.get(position);
+
+                target.setCompanyName(CompanyName);
+                target.setEmail(Email);
+                target.setDate(Date);
+                target.setLink(Link);
+                target.setInfo(Info);
+                target.setStatus(Status);
+
+                companyAdapter.notifyDataSetChanged();
+
+                Snackbar.make(findViewById(R.id.drawer_layout), companyArrayList.get(position).getCompanyName() + ": Successfully Edited",
+                        Snackbar.LENGTH_LONG).show();
+            }
+            if(resultCode == RESULT_OK){
+                int position = data.getIntExtra("Positions", 0);
+                Snackbar.make(findViewById(R.id.drawer_layout), companyArrayList.get(position).getCompanyName() + ": Successfully Deleted",
+                        Snackbar.LENGTH_LONG).show();
+                companyArrayList.remove(position);
+                companyAdapter.notifyDataSetChanged();
+            }
+        }
+
 
     }
 
@@ -170,6 +203,10 @@ public class MainActivity extends AppCompatActivity
         String Status = companyArrayList.get(position).getStatus().trim();
 
         Intent intent = new Intent(this, InfoCompany.class);
+
+        intent.putParcelableArrayListExtra("Companies", companyArrayList);
+        intent.putExtra("Position", position);
+
         intent.putExtra("CompanyName", CompanyName);
         intent.putExtra("Email", Email);
         intent.putExtra("Date", Date);
@@ -177,6 +214,6 @@ public class MainActivity extends AppCompatActivity
         intent.putExtra("info", Info);
         intent.putExtra("Status", Status);
 
-        startActivity(intent);
+        startActivityForResult(intent, 10);
     }
 }

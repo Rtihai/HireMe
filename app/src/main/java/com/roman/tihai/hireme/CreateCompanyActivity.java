@@ -34,13 +34,10 @@ public class CreateCompanyActivity extends AppCompatActivity {
         this.rbtnGrp = findViewById(R.id.radioGroup);
 
         Intent intent = getIntent();
-
         addListenerOnButton();
     }
 
     private void addListenerOnButton() {
-
-
     }
 
     private String getStatus(){

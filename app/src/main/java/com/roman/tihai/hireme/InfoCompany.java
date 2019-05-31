@@ -1,21 +1,28 @@
 package com.roman.tihai.hireme;
 
 import android.content.Intent;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 public class InfoCompany extends AppCompatActivity {
-    private TextView CompanyName;
-    private TextView Email;
-    private TextView Date;
-    private TextView Link;
-    private TextView Info;
-    private TextView Status;
+    private EditText editName;
+    private EditText editEmail;
+    private EditText editDate;
+    private EditText editLink;
+    private EditText editInfo;
+    private RadioGroup rbtnGrp;
+    private RadioButton rbtn;
 
-
+    private int position;
+    private ArrayList<Company> companyArrayList  = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,29 +30,69 @@ public class InfoCompany extends AppCompatActivity {
         setContentView(R.layout.activity_info_company);
         Intent intent = getIntent();
 
-        String CompanyName = intent.getStringExtra("CompanyName");
-        String Email = intent.getStringExtra("Email");
-        String Date = intent.getStringExtra("Date");
-        String Link = intent.getStringExtra("Link");
-        String Info = intent.getStringExtra("info");
-        String Status = intent.getStringExtra("Status");
+        String editName = intent.getStringExtra("CompanyName");
+        String editEmail = intent.getStringExtra("Email");
+        String editDate = intent.getStringExtra("Date");
+        String editLink = intent.getStringExtra("Link");
+        String editInfo = intent.getStringExtra("info");
 
-        this.CompanyName = findViewById(R.id.company_name_text);
-        this.Email = findViewById(R.id.email_text);
-        this.Date = findViewById(R.id.date_send_text);
-        this.Link = findViewById(R.id.link_text);
-        this.Info = findViewById(R.id.addition_information_text);
+        this.position = intent.getIntExtra("Position", 0);
 
-        this.CompanyName.setText(CompanyName);
-        this.Email.setText(Email);
-        this.Date.setText(Date);
-        this.Link.setText(Link);
-        this.Info.setText(Info);
+        this.companyArrayList = intent.getParcelableArrayListExtra("Companies");
 
-//        I think We don't need radio button on this view
-//        we can put TextView as a status instead of the buttons. How do you think?
+        this.editName = findViewById(R.id.company_name_text);
+        this.editEmail = findViewById(R.id.email_text);
+        this.editDate = findViewById(R.id.date_send_text);
+        this.editLink = findViewById(R.id.link_text);
+        this.editInfo = findViewById(R.id.addition_information_text);
+        this.rbtnGrp = findViewById(R.id.radioGroup);
 
-//        this.Status = findViewById(R.id.)
+        this.editName.setText(editName);
+        this.editEmail.setText(editEmail);
+        this.editDate.setText(editDate);
+        this.editLink.setText(editLink);
+        this.editInfo.setText(editInfo);
+
     }
 
+    private String getStatus(){
+        int selectedBtnId = rbtnGrp.getCheckedRadioButtonId();
+        rbtn = findViewById(selectedBtnId);
+        return rbtn.getText().toString();
+    }
+
+    public void onHideClicked(View view) {
+
+        final String CompanyName = editName.getText().toString().trim();
+        final String Email = editEmail.getText().toString().trim();
+        final String Date = editDate.getText().toString().trim();
+        final String Link = editLink.getText().toString().trim();
+        final String Info = editInfo.getText().toString();
+        String Status = this.getStatus();
+
+        if(!CompanyName.isEmpty()) {
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.putExtra("CompanyName", CompanyName);
+            intent.putExtra("Email", Email);
+            intent.putExtra("Date", Date);
+            intent.putExtra("Link", Link);
+            intent.putExtra("Info", Info);
+            intent.putExtra("Status", Status);
+            setResult(RESULT_FIRST_USER, intent);
+            intent.putExtra("Positions", this.position);
+            finish();
+
+        } else {
+
+        }
+        finish();
+    }
+
+
+    public void onEditClicked(View view) {
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("Positions", this.position);
+        setResult(RESULT_OK, intent);
+        finish();
+    }
 }
